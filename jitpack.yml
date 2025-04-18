@@ -1,0 +1,14 @@
+# jitpack.yml
+jdk:
+  - openjdk11
+
+before_install:
+  - apt-get -qq update && apt-get install -y cmake make g++
+
+install:
+  # Baue die C++‑Library
+  - mkdir build && cd build
+  - cmake .. && make
+  # Installiere die Java‑Wrapper
+  - cd ../wrappers/Java
+  - mvn install -DskipTests -B
