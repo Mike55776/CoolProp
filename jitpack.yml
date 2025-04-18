@@ -2,9 +2,9 @@
 jdk:
   - openjdk11
 
-before_install:
-  - apt-get -qq update && apt-get install -y cmake make gcc g++
+# Skip any apt‑get; JitPack containers won't let you install system packages.
+# Just invoke Maven on the Java wrapper POM directly:
 
-# Wir überspringen den Root-Build, und bauen nur das Java-Modul:
 install:
-  - mvn -B clean install -pl wrappers/Java -DskipTests
+  # -f points Maven at the wrapper’s POM; no root reactor needed.
+  - mvn -B -f wrappers/Java/pom.xml clean install -DskipTests
